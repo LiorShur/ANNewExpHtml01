@@ -1951,6 +1951,7 @@ function renderElevationChart() {
   initMap();
 }
 
+
 // async function exportRouteSummary() {
 
 //   const mostRecent = JSON.parse(localStorage.getItem("sessions") || "[]").slice(-1)[0];
