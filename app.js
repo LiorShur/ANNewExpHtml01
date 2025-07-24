@@ -1482,6 +1482,56 @@ for (const entry of enriched) {
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <title>\${name}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Modern layout CSS and JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 0; background: #f9f9f9; }
+    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; box-shadow: 0 0 10px #ccc; }
+    h1, h2 { color: #2c5530; }
+    .tab-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .tab-bar button { padding: 8px 16px; border: none; background: #ddd; cursor: pointer; }
+    .tab-bar button.active { background: #2c5530; color: white; }
+    .tab-content { display: none; margin-top: 20px; }
+    .tab-content.active { display: block; }
+    #map { height: 400px; width: 100%; margin-bottom: 20px; }
+    #chart-canvas { width: 100%; height: 300px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🏞️ \${mapField("trailName")} – סיכום מסלול</h1>
+  <div class="tab-bar">
+    <button onclick="openTab('map')" class="active">🗺️ מפה</button>
+    <button onclick="openTab('chart')">📈 גרף גובה</button>
+    <button onclick="openTab('access')">♿ נגישות</button>
+  </div>
+  <div id="map" class="tab-content active"></div>
+  <div id="chart" class="tab-content"><canvas id="chart-canvas"></canvas></div>
+  <div id="access" class="tab-content">
+    <ul>
+      <li><b>תאורה:</b> \${mapField("lighting")}</li>
+      <li><b>מכשולים:</b> \${mapField("hazards")}</li>
+    </ul>
+  </div>
+</div>
+<script>
+  function openTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-bar button').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>`;
+  let htmlContent = `<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
   <title>${name}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1950,6 +2000,7 @@ function renderElevationChart() {
   resetApp();
   initMap();
 }
+
 
 
 // async function exportRouteSummary() {
