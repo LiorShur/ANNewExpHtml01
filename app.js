@@ -1642,14 +1642,34 @@ textarea#comment-input {
   border: 1px solid #ccc;
   resize: vertical;
 }
+.hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hero-header img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.header-info {
+  text-align: center;
+}
 
 </style>
 </head>
 
 <body>
   <div class="container">
-  <header>
-      <h1>🏞️ Trail Title</h1>
+  <header class="hero-header">
+      <img id="header-image" alt="תמונת נוף" />
+  <div class="header-info">
+    <h1>🏞️ ${mapField("trailName")} – סיכום מסלול</h1>
       <p>אזור: ${detectedRegion || "לא זוהה אזור"}</p>
       <div>
         <a href="${googleMapsURL}" target="_blank">📍 ניווט עם Google Maps</a> |
@@ -1845,6 +1865,24 @@ function openTab(id) {
 
     // MAIN INITIALIZATION - FIXED
     window.addEventListener("DOMContentLoaded", () => {
+    loadComments();
+
+  // 🖼️ Set header image
+  try {
+    const firstPhoto = route.find(p => p.type === "photo");
+    const headerImg = document.getElementById("header-image");
+
+    if (firstPhoto) {
+      // Use local image
+      headerImg.src = `images/photo1.jpg`;
+    } else {
+      // Use fallback from Unsplash
+      const keywords = "${detectedRegion}".split(" ")[0];
+      headerImg.src = `https://source.unsplash.com/featured/800x400/?nature,trail,${keywords}`;
+    }
+  } catch (e) {
+    console.warn("❌ Failed to load header image:", e);
+  }
     loadComments();
     populateMediaGallery();
       console.log("Chart.js version:", Chart?.version);
