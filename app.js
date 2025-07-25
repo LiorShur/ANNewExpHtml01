@@ -2048,7 +2048,7 @@ function renderElevationChart() {
   new Chart(ctx, {
     type: "line",
     data: {
-      labels: route.map((_, i) => `נקודה ${i + 1}`),
+      labels: route.map((_, i) => "נקודה " + (i + 1)),
       datasets: [{
         label: "גובה (מ')",
         data: elevationData,
