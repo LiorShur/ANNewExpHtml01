@@ -1870,16 +1870,14 @@ function openTab(id) {
   // 🖼️ Set header image
   try {
     const firstPhoto = route.find(p => p.type === "photo");
-    const headerImg = document.getElementById("header-image");
+const headerImg = document.getElementById("header-image");
 
-    if (firstPhoto) {
-      // Use local image
-      headerImg.src = `images/photo1.jpg`;
-    } else {
-      // Use fallback from Unsplash
-      const keywords = "${detectedRegion}".split(" ")[0];
-      headerImg.src = `https://source.unsplash.com/featured/800x400/?nature,trail,${keywords}`;
-    }
+if (firstPhoto) {
+  headerImg.src = "images/photo1.jpg";
+} else {
+  const keywords = "${detectedRegion}".split(" ")[0];
+  headerImg.src = "https://source.unsplash.com/featured/800x400/?nature,trail," + keywords;
+}
   } catch (e) {
     console.warn("❌ Failed to load header image:", e);
   }
