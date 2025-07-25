@@ -2097,8 +2097,8 @@ function populateMediaGallery() {
   const photos = route.filter(p => p.type === "photo");
   photos.forEach((photo, index) => {
     const img = document.createElement("img");
-    img.src = `images/photo${index + 1}.jpg`;
-    img.alt = `תמונה ${index + 1}`;
+    img.src = "images/photo" + (index + 1) + ".jpg";
+    img.alt = "תמונה" + {index + 1};
     img.onclick = () => {
       document.getElementById("modal-image").src = img.src;
       document.getElementById("image-modal").style.display = "flex";
