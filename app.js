@@ -2081,7 +2081,8 @@ function renderElevationChart() {
         legend: { display: false },
         tooltip: {
           callbacks: {
-            label: ctx => `גובה: ${ctx.raw} מ'`
+            label: ctx => "גובה" + {ctx.raw} + "מ"
+    
           }
         }
       }
