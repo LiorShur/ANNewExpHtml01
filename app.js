@@ -1676,9 +1676,7 @@ textarea#comment-input {
         <a href="${wazeURL}" target="_blank">🧭 ניווט עם Waze</a>
       </div>
     </header>
-    <h1>🏞️ ${mapField("trailName")} – סיכום מסלול</h1>
     
-
     <div class="media-counts">
       📸 ${photoCounter - 1} תמונות |
       📝 ${noteCounter - 1} הערות |
