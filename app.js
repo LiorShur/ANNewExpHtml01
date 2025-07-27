@@ -1718,9 +1718,10 @@ textarea#comment-input {
 
 <script>
 
-  let route = [];
-let pathCoords = [];
-let bounds = [];
+  let route = JSON.parse("${routeDataEscaped}");
+let pathCoords = JSON.parse("${pathCoordsEscaped}");
+let bounds = JSON.parse("${boundsEscaped}");
+
 
     // Tab function
     let chartRendered = false;
