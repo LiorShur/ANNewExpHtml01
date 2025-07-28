@@ -1580,7 +1580,17 @@ for (const entry of enriched) {
 </head>
 <body>
   <div class="container">
+  <header class="hero-header">
+      <img id="header-image" src = "images/photo1.jpg" alt="תמונת נוף" />
+  <div class="header-info">
     <h1>🏞️ ${mapField("trailName")} – סיכום מסלול</h1>
+      <p>אזור: ${detectedRegion || "לא זוהה אזור"}</p>
+      <div>
+        <a href="${googleMapsURL}" target="_blank">📍 ניווט עם Google Maps</a> |
+        <a href="${wazeURL}" target="_blank">🧭 ניווט עם Waze</a>
+      </div>
+    </header>
+    
     <div class="media-counts">
       <b>📸 תמונות:</b> ${photoCounter - 1} |
       <b>📝 הערות:</b> ${noteCounter - 1} |
