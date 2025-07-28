@@ -1435,6 +1435,16 @@ try {
 } catch (e) {
   console.warn("❌ Region detection failed:", e);
 }
+
+let startLat = "", startLng = "";
+let googleMapsURL = "", wazeURL = "";
+
+if (enriched.length > 0 && enriched[0].coords) {
+  startLat = enriched[0].coords.lat;
+  startLng = enriched[0].coords.lng;
+  googleMapsURL = `https://www.google.com/maps/dir/?api=1&destination=${startLat},${startLng}`;
+  wazeURL = `https://waze.com/ul?ll=${startLat},${startLng}&navigate=yes`;
+}
   
   // Enrich with elevation
 for (const entry of enriched) {
