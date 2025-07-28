@@ -1422,6 +1422,20 @@ L.marker([${entry.coords.lat}, ${entry.coords.lng}])
 
   console.log("✅ Processed route data. PathCoords:", pathCoords.length, "Enriched:", enriched.length);
 
+  // 🌍 Region detection via reverse geocoding
+let detectedRegion = "";
+try {
+  const firstPoint = enriched.find(p => p.coords);
+  if (firstPoint) {
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${firstPoint.coords.lat}&lon=${firstPoint.coords.lng}`);
+    const json = await res.json();
+    detectedRegion = json?.address?.state || json?.address?.region || "";
+    console.log("📍 Detected region:", detectedRegion);
+  }
+} catch (e) {
+  console.warn("❌ Region detection failed:", e);
+}
+  
   // Enrich with elevation
 for (const entry of enriched) {
   if (entry.type === "location" && entry.elevation == null) {
