@@ -1918,6 +1918,115 @@ if (firstPhoto) {
 
       populateMediaGallery();
 
+            // Initialize elevation chart
+// Delay chart rendering to allow full layout
+// console.log("Chart element found?", !!chartElement);
+// console.log("Elevation data:", elevationData);
+// console.log("Chart.js version:", Chart);
+
+function renderElevationChart() {
+  console.log("📈 Rendering elevation chart");
+
+  const canvas = document.getElementById("chart-canvas");
+  if (!canvas) {
+    console.warn("Chart canvas not found");
+    return;
+  }
+
+  const ctx = canvas.getContext("2d");
+  const elevationData = route.map(p => p.elevation || 0);
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, "rgba(34,139,34,0.5)");
+  gradient.addColorStop(1, "rgba(34,139,34,0.1)");
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: route.map((_, i) => "נקודה " + (i + 1)),
+      datasets: [{
+        label: "גובה (מ')",
+        data: elevationData,
+        borderColor: "green",
+        backgroundColor: gradient,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: 'index',
+        intersect: false
+      },
+      scales: {
+        y: {
+          title: { display: true, text: "גובה במטרים" }
+        },
+        x: {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 10
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => "גובה" + {ctx.raw} + "מ"
+    
+          }
+        }
+      }
+    }
+  });
+}
+
+function populateMediaGallery() {
+  const grid = document.getElementById("media-grid");
+  if (!grid || !route) return;
+
+  const photos = route.filter(p => p.type === "photo");
+  photos.forEach((photo, index) => {
+    const img = document.createElement("img");
+    img.src = "images/photo" + (index + 1) + ".jpg";
+    img.alt = "תמונה" + {index + 1};
+    img.onclick = () => {
+      document.getElementById("modal-image").src = img.src;
+      document.getElementById("image-modal").style.display = "flex";
+    };
+    grid.appendChild(img);
+  });
+}
+
+function loadComments() {
+  const comments = JSON.parse(localStorage.getItem("route_comments") || "[]");
+  const list = document.getElementById("comments-list");
+  list.innerHTML = "";
+  comments.forEach(comment => {
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.textContent = comment;
+    list.appendChild(div);
+  });
+}
+
+function addComment() {
+  const textarea = document.getElementById("comment-input");
+  const text = textarea.value.trim();
+  if (!text) return;
+
+  const comments = JSON.parse(localStorage.getItem("route_comments") || "[]");
+  comments.push(text);
+  localStorage.setItem("route_comments", JSON.stringify(comments));
+
+  textarea.value = "";
+  loadComments();
+}
+
 });
 </script>
 <script>
