@@ -1576,6 +1576,24 @@ for (const entry of enriched) {
       text-align: center;
       line-height: 24px;
     }
+    .hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hero-header img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.header-info {
+  text-align: center;
+}
   </style>
 </head>
 <body>
